@@ -4,4 +4,9 @@ export const authRoutes = {
 
 export const pageRoutes = {
   DASHBOARD: "/dashboard",
+  REPORT: "/reports",
+  ORDER: "/orders",
+  CATALOG: "/catalog",
+  STOCK: "/stock",
+  TRACKORDER: "/tracked-orders",
 };

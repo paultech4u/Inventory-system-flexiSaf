@@ -8,7 +8,7 @@ import AppProtectedScreens from "./AppProtectedScreen";
 function App(props) {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   // const history = useHistory();
-  const navigateToMainScreen = () => {
+  const toggleScreensViews = () => {
     setIsAuthenticated((p) => !p);
   };
 
@@ -18,9 +18,9 @@ function App(props) {
         <CssBaseline />
         <GlobalCss />
         {isAuthenticated === true ? (
-          <AppProtectedScreens />
+          <AppProtectedScreens onLogout={toggleScreensViews} />
         ) : (
-          <AuthScreens onPressed={navigateToMainScreen} />
+          <AuthScreens onPressed={toggleScreensViews} />
         )}
       </BrowserRouter>
     </MuiThemeProvider>
