@@ -4,7 +4,6 @@ import {
   Typography,
   TextField,
   InputAdornment,
-  MenuItem,
   makeStyles,
   IconButton,
   Button,
@@ -19,11 +18,15 @@ import {
   useGlobalFilter,
   useBlockLayout,
   useAsyncDebounce,
+  useFilters,
 } from "react-table";
 import Search from "@material-ui/icons/Search";
 import CalendarToday from "@material-ui/icons/CalendarToday";
 import AddBox from "@material-ui/icons/AddBox";
 import Cached from "@material-ui/icons/Cached";
+
+
+
 
 function Stocks(props) {
   const classes = useStyles();
@@ -40,11 +43,13 @@ function Stocks(props) {
     state,
     setGlobalFilter,
     totalColumnsWidth,
+    columns: column,
   } = useTable(
     {
       columns,
       data,
     },
+    useFilters,
     useGlobalFilter,
     useBlockLayout
   );
@@ -59,6 +64,21 @@ function Stocks(props) {
     setGlobalFilter(value || undefined);
   }, 1000);
 
+  const {
+    preFilteredRows,
+    filterValue,
+    setFilter: setFilteredColumn,
+    id,
+  } = column[3];
+
+  const status = React.useMemo(() => {
+    const options = new Set();
+    preFilteredRows.forEach((row) => {
+      options.add(row.values[id]);
+    });
+    return [...options.values()];
+  }, [id, preFilteredRows]);
+
   return (
     <Box display="flex" flex={1} flexDirection="column" p={10}>
       <Box
@@ -70,12 +90,12 @@ function Stocks(props) {
       >
         <Box display="flex" alignItems="center">
           <Box mr={20}>
-            <Typography variant="h4">In Stock</Typography>
+            <Typography variant="h5">In Stock</Typography>
           </Box>
           <Box mr={20}>
             <TextField
               variant="outlined"
-              placeholder="Quick Search"
+              placeholder="Filter Products"
               value={filter || ""}
               onChange={(e) => {
                 setFilter(e.target.value);
@@ -103,13 +123,16 @@ function Stocks(props) {
             <TextField
               variant="outlined"
               select
-              value="All"
+              SelectProps={{ native: true }}
+              value={filterValue}
+              onChange={(e) => setFilteredColumn(e.target.value || undefined)}
               className={classes.textField}
             >
+              <option value="">All</option>
               {status.map((status) => (
-                <MenuItem value={status} key={status}>
+                <option value={status} key={status}>
                   {status}
-                </MenuItem>
+                </option>
               ))}
             </TextField>
           </Box>
@@ -165,7 +188,7 @@ function Stocks(props) {
                 return (
                   <Box
                     {...row.getRowProps({
-                      ...style,
+                      style,
                     })}
                   >
                     {row.cells.map((cell) => (
@@ -197,8 +220,6 @@ function Stocks(props) {
 
 export default Stocks;
 
-const status = ["All", "Completed", "In progress", "Advance notification"];
-
 const useStyles = makeStyles((theme) => ({
   textField: {
     width: "33ch",
@@ -218,7 +239,6 @@ const useStyles = makeStyles((theme) => ({
   },
   tr_cell: {
     padding: 10,
-   
   },
   tr_cell_completed: {
     color: theme.palette.success.main,

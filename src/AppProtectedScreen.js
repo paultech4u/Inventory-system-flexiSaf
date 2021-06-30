@@ -2,10 +2,11 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { Box, makeStyles } from "@material-ui/core";
 import Dashboard from "./pages/Dashboard";
 import Reports from "./pages/Reports";
+import Stocks from "./pages/stocks/Stocks";
+import Orders from "./pages/order/Orders";
 import { pageRoutes } from "./constant";
 import AppDrawer from "./AppDrawer";
 import AppNavBar from "./AppNavBar";
-import Stocks from "./pages/Stocks/Stocks";
 
 function AppProtectedScreens(props) {
   const classes = useStyles();
@@ -19,6 +20,7 @@ function AppProtectedScreens(props) {
             <Route exact path={pageRoutes.DASHBOARD} component={Dashboard} />
             <Route exact path={pageRoutes.REPORT} component={Reports} />
             <Route exact path={pageRoutes.STOCK} component={Stocks} />
+            <Route exact path={pageRoutes.ORDER} component={Orders} />
             <Redirect exact to={pageRoutes.DASHBOARD} />
           </Switch>
         </Box>
