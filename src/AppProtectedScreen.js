@@ -5,7 +5,7 @@ import Reports from "./pages/Reports";
 import { pageRoutes } from "./constant";
 import AppDrawer from "./AppDrawer";
 import AppNavBar from "./AppNavBar";
-import Stocks from "./pages/Stocks";
+import Stocks from "./pages/Stocks/Stocks";
 
 function AppProtectedScreens(props) {
   const classes = useStyles();
