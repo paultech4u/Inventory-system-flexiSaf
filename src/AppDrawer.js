@@ -61,7 +61,7 @@ function AppDrawer(props) {
 
         <Box display="flex" justifyContent="center" alignItems="center" flex={1}>
           <Button
-            color="primary"
+            color="secondary"
             variant="contained"
             onClick={props.onLogout}
           >

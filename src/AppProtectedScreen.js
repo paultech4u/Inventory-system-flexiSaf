@@ -1,12 +1,14 @@
 import { Route, Switch, Redirect } from "react-router-dom";
 import { Box, makeStyles } from "@material-ui/core";
-import Dashboard from "./pages/Dashboard";
-import Reports from "./pages/Reports";
-import Stocks from "./pages/stocks/Stocks";
-import Orders from "./pages/order/Orders";
 import { pageRoutes } from "./constant";
+import { lazyload } from "./common/LazyLoading";
 import AppDrawer from "./AppDrawer";
 import AppNavBar from "./AppNavBar";
+
+const Dashboard = lazyload(() => import("./pages/Dashboard"));
+const Reports = lazyload(() => import("./pages/Reports"));
+const Stocks = lazyload(() => import("./pages/stocks/Stocks"));
+const Orders = lazyload(() => import("./pages/order/Orders"));
 
 function AppProtectedScreens(props) {
   const classes = useStyles();

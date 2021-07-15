@@ -25,9 +25,6 @@ import CalendarToday from "@material-ui/icons/CalendarToday";
 import AddBox from "@material-ui/icons/AddBox";
 import Cached from "@material-ui/icons/Cached";
 
-
-
-
 function Stocks(props) {
   const classes = useStyles();
   const columns = React.useMemo(() => COLUMNS, []);
@@ -154,6 +151,7 @@ function Stocks(props) {
           </Button>
         </Box>
       </Box>
+
       <Box display="flex" overflow="auto" justifyContent="center">
         <Paper
           variant="outlined"
